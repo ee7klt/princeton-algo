@@ -9,6 +9,9 @@ public class Percolation {
  
  
  private int xyto1D(int i, int j) {    //maps cartesian i,j [1,N] to int [0,N^2-1]
+     if (i <= 0 || i > N) throw new IndexOutOfBoundsException("row index i out of bounds");
+     if (j <= 0 || j > N) throw new IndexOutOfBoundsException("row index i out of bounds");
+     
      int index;
      index = (i-1)*N+(j-1);
      System.out.println(index);
@@ -43,7 +46,7 @@ public boolean percolates(){
 
 public static void main(String[] args) {
     Percolation percolation = new Percolation(2);
-    percolation.open(2,2);
+    percolation.open(3,3);
     
 }
 
