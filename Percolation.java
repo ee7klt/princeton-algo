@@ -62,18 +62,20 @@ public class Percolation {
  public void open(int i, int j){  // open site (row i, column j) if it is not already
      indexValidation(i,j);       //is site within grid?
      thisSite = xyto1D(i,j);
+     
+     if (grid[thisSite] == false) {   //open the site and connect to neighbors only if it has not been opened before.
      grid[thisSite] = true;   //mark site as open
     System.out.println("Opening site (" + i +","+ j +")");
      
     
     //if site is on top row, connect it to the top virtual site
     if (i == 1) {
-         UF.union(thisSite,bottomVirtual);
+         UF.union(thisSite,topVirtual);
     }
     
     //if site is on bottom row, connect it to bottom virtual site
     if (i == N) {
-         UF.union(thisSite,topVirtual);
+         UF.union(thisSite,bottomVirtual);
     }
     
     //check to see if neighboring sites are within grid.
@@ -84,11 +86,11 @@ public class Percolation {
           
           if (isOpen(i-1,j)) {
               nextSite = xyto1D(i-1,j);
-             System.out.println("left is open!");
-             System.out.println("connected = "+UF.connected(thisSite,nextSite));
+             //System.out.println("left is open!");
+             //System.out.println("connected = "+UF.connected(thisSite,nextSite));
              if (!UF.connected(thisSite,nextSite)) {
                  UF.union(thisSite,nextSite);
-                 System.out.println("connected = "+UF.connected(thisSite,nextSite));
+               //  System.out.println("connected = "+UF.connected(thisSite,nextSite));
              };
              
           };
@@ -97,11 +99,11 @@ public class Percolation {
      if (i <  N) {  //bottom
           if (isOpen(i+1,j)) {
               nextSite = xyto1D(i+1,j);
-             System.out.println("right is open!");
-             System.out.println("connected = "+UF.connected(thisSite,nextSite));
+             //System.out.println("right is open!");
+             //System.out.println("connected = "+UF.connected(thisSite,nextSite));
              if (!UF.connected(thisSite,nextSite)) {
                  UF.union(thisSite,nextSite);
-                 System.out.println("connected = "+UF.connected(thisSite,nextSite));
+               //  System.out.println("connected = "+UF.connected(thisSite,nextSite));
              };
              
           };
@@ -110,11 +112,11 @@ public class Percolation {
       if (j > 1) { //left
           if (isOpen(i,j-1)) {
               nextSite = xyto1D(i,j-1);
-             System.out.println("bottom is open!");
-             System.out.println("connected = "+UF.connected(thisSite,nextSite));
+             //System.out.println("bottom is open!");
+             //System.out.println("connected = "+UF.connected(thisSite,nextSite));
              if (!UF.connected(thisSite,nextSite)) {
                  UF.union(thisSite,nextSite);
-                 System.out.println("connected = "+UF.connected(thisSite,nextSite));
+               //  System.out.println("connected = "+UF.connected(thisSite,nextSite));
              };
              
           };
@@ -123,11 +125,11 @@ public class Percolation {
        if (j < N) { //right
           if (isOpen(i,j+1)) {
               nextSite = xyto1D(i,j+1);
-             System.out.println("top is open!");
-             System.out.println("connected = "+UF.connected(thisSite,nextSite));
+             //System.out.println("top is open!");
+             //System.out.println("connected = "+UF.connected(thisSite,nextSite));
              if (!UF.connected(thisSite,nextSite)) {
                  UF.union(thisSite,nextSite);
-                 System.out.println("connected = "+UF.connected(thisSite,nextSite));
+               //  System.out.println("connected = "+UF.connected(thisSite,nextSite));
              };
              
           };
@@ -135,7 +137,9 @@ public class Percolation {
     };
       
         
-    System.out.println("Updated grid is "+Arrays.toString(grid));
+   // System.out.println("Updated grid is "+Arrays.toString(grid));
+       
+     } else {System.out.println("Site (" + i +","+ j +") previously opened. Skipping it.");} //if site was already previously opened, say it.
 };    
 
  
@@ -168,7 +172,7 @@ public boolean isFull(int i, int j){
 
 public boolean percolates(){
     
-    //System percolates if bottom virtual site is connected to top virtual site
+    //System percolates if bottom virtual site is connected to top virtual site i.e. any bottom site is full
     boolean truthy = false;
     if (UF.connected(topVirtual,bottomVirtual) == true) {
         truthy = true; 
@@ -187,8 +191,18 @@ public static void main(String[] args) {
     percolation.open(2,2);
     percolation.isFull(2,2);
     percolation.percolates();
+    percolation.open(1,1);
+    percolation.isFull(1,1);
+    percolation.percolates();
+    percolation.open(1,2);
+    percolation.isFull(1,2);
+    percolation.percolates();
+    percolation.open(2,2);
+    percolation.isFull(2,2);
     //percolation.open(2,1);
-    //percolation.open(3,2);
+    percolation.open(3,2);
+    percolation.isFull(3,2);
+    percolation.percolates();
     //percolation.open(3,1);
    
     
