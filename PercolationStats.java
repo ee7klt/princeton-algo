@@ -1,4 +1,4 @@
-import java.util.Arrays;
+//import //java.util.Arrays;
 
 public class PercolationStats {
     
@@ -39,13 +39,14 @@ public class PercolationStats {
      
      //System.out.println("Fraction of open sites for experiment "+(x+1)+" of "+T+" is: "+counter+" of "+(gridSize));
      fracOpen[x] = (double) counter/gridSize;
-     System.out.println("Fraction of open sites for experiment "+(x+1)+" of "+T+" is: "+fracOpen[x]);
+     //System.out.println("Fraction of open sites for experiment "+(x+1)+" of "+T+" is: "+fracOpen[x]);
      
         }  //end for loop
         
     }
     public double mean() {                     // sample mean of percolation threshold
        mu = StdStats.mean(fracOpen);
+       
         return mu;
     }
     public double stddev() {
@@ -53,6 +54,7 @@ public class PercolationStats {
             return Double.NaN;
         } else { 
             sigma =  StdStats.stddev(fracOpen);
+            
             return sigma;
         }
     }// sample standard deviation of percolation threshold
@@ -63,12 +65,19 @@ public double confidenceHi()    {         // returns upper bound of the 95% conf
  return (mu + (1.96*sigma/Math.pow(T,.5)));
 }
     public static void main(String[] args)   {// test client, described below
-        PercolationStats percolationstats = new PercolationStats(1000,5);
-        System.out.println(Arrays.toString(percolationstats.fracOpen));
-        System.out.println(percolationstats.mean());
-        System.out.println(percolationstats.stddev());
-       System.out.println(percolationstats.confidenceLo());
-       System.out.println(percolationstats.confidenceHi());
+        int firstArg = Integer.parseInt(args[0]);
+        int secondArg = Integer.parseInt(args[1]);
+        PercolationStats percolationstats = new PercolationStats(firstArg,secondArg);
+        System.out.println("mean = "+ percolationstats.mean());
+        System.out.println("stddev = "+ percolationstats.stddev());
+        double conInt = percolationstats.confidenceHi()-percolationstats.confidenceLo();
+        System.out.println("95% confidence interval = "+conInt);
+        
+        //System.out.println(Arrays.toString(percolationstats.fracOpen));
+        //System.out.println(percolationstats.mean());
+        //System.out.println(percolationstats.stddev());
+       //System.out.println(percolationstats.confidenceLo());
+       //System.out.println(percolationstats.confidenceHi());
         
     }
 }
