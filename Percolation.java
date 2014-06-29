@@ -139,7 +139,7 @@ public class Percolation {
         
    // System.out.println("Updated grid is "+Arrays.toString(grid));
        
-     } else {System.out.println("Site (" + i +","+ j +") previously opened. Skipping it.");} //if site was already previously opened, say it.
+     } //else {System.out.println("Site (" + i +","+ j +") previously opened. Skipping it.");} //if site was already previously opened, say it.
 };    
 
  

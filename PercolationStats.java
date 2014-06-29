@@ -3,18 +3,25 @@
 public class PercolationStats {
     
     private double[]  fracOpen;  //array keeping track of percentage of sites open for each of the T experiment.
-    private int thisSite;
+    //private int thisSite;
     private int gridSize;
     private int counter;
     private int N;
     private int T;
-    private double mu;
-    private double sigma;
+    //private double mu;
+    //private double sigma;
+    
+    private void outOfBounds(int N, int T) {   //throw exception for invalid indices
+    if (N <= 1) throw new IndexOutOfBoundsException("grid size N out of bounds");
+     if (T <= 0) throw new IndexOutOfBoundsException("number of experiments T out of bounds");
+ }
+    
     
     public PercolationStats(int N, int T)    {// perform T independent computational experiments on an N-by-N grid
      //System.out.println(StdRandom.uniform());
         this.T = T;
         this.N = N;
+        outOfBounds(N,T);
         fracOpen = new double[T];  //assign length T to fracOpen
         gridSize = (int)Math.pow(N,2);
         //perform T experiments
@@ -45,23 +52,27 @@ public class PercolationStats {
         
     }
     public double mean() {                     // sample mean of percolation threshold
-       mu = StdStats.mean(fracOpen);
+      
        
-        return mu;
+        return StdStats.mean(fracOpen);
     }
     public double stddev() {
         if (T==1) {
             return Double.NaN;
         } else { 
-            sigma =  StdStats.stddev(fracOpen);
+          
             
-            return sigma;
+            return  StdStats.stddev(fracOpen);
         }
     }// sample standard deviation of percolation threshold
    public double confidenceLo()  {           // returns lower bound of the 95% confidence interval
+       double mu = StdStats.mean(fracOpen);
+       double sigma = StdStats.stddev(fracOpen);
      return (mu - (1.96*sigma/Math.pow(T,.5)));
 }
 public double confidenceHi()    {         // returns upper bound of the 95% confidence interval
+    double mu = StdStats.mean(fracOpen);
+       double sigma = StdStats.stddev(fracOpen);
  return (mu + (1.96*sigma/Math.pow(T,.5)));
 }
     public static void main(String[] args)   {// test client, described below
