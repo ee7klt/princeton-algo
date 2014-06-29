@@ -11,9 +11,9 @@ public class PercolationStats {
     //private double mu;
     //private double sigma;
     
-    private void outOfBounds(int N, int T) {   //throw exception for invalid indices
-    if (N <= 1) throw new IndexOutOfBoundsException("grid size N out of bounds");
-     if (T <= 0) throw new IndexOutOfBoundsException("number of experiments T out of bounds");
+    public void outOfBounds(int N, int T) {   //throw exception for invalid indices
+    if (N <= 1) throw new IllegalArgumentException("grid size N out of bounds");
+     if (T <= 0) throw new IllegalArgumentException("number of experiments T out of bounds");
  }
     
     
@@ -78,6 +78,7 @@ public double confidenceHi()    {         // returns upper bound of the 95% conf
     public static void main(String[] args)   {// test client, described below
         int firstArg = Integer.parseInt(args[0]);
         int secondArg = Integer.parseInt(args[1]);
+       //outOfBounds(firstArg,secondArg);
         PercolationStats percolationstats = new PercolationStats(firstArg,secondArg);
         System.out.println("mean = "+ percolationstats.mean());
         System.out.println("stddev = "+ percolationstats.stddev());

@@ -13,6 +13,11 @@ public class Percolation {
  private int bottomVirtual; //index of bottom virtual site in grid[]
  
  
+   public void outOfBounds(int N) {   //throw exception for invalid indices
+    if (N <= 0) throw new IllegalArgumentException("grid size N out of bounds");
+     //if (T <= 0) throw new IllegalArgumentException("number of experiments T out of bounds");
+ }
+ 
  
  
  private void indexValidation(int i, int j) {   //throw exception for invalid indices
@@ -31,6 +36,7 @@ public class Percolation {
  
  public Percolation(int N){   // create N-by-N grid, with all sites blocked
      this.N=N;
+     outOfBounds(N);
       //grid = new boolean[(int)Math.pow(N,2) + 2];   //+2 for virtual sites on top and bottom to make detection fast
      //create NxN grid + top and bottom virtual sites
      //top virtual site has index 0
