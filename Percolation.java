@@ -55,8 +55,14 @@ public class Percolation {
      
     
     //if site is on top row, connect it to the top virtual site
-    //if site is on bottom row, connect it to bottom virtual site
+    if (i == N) {
+         UF.union(thisSite,bottomVirtual);
+    }
     
+    //if site is on bottom row, connect it to bottom virtual site
+    if (i == 1) {
+         UF.union(thisSite,topVirtual);
+    }
     
     //check to see if neighboring sites are within grid.
     //if so, check to see if they are open
@@ -138,7 +144,8 @@ public boolean isOpen(int i, int j){ // is site (row i, column j) open?
 public boolean isFull(int i, int j){
     
     boolean truthy = false;
-    if (UF.find(xyto1D(i,j)) == topVirtual) {    //trace grid to root.
+    thisSite = xyto1D(i,j);
+    if (UF.connected(thisSite,topVirtual) == true) {    //trace grid to root.
         truthy = true;                           //if root of current site is the top virtual site, the site is full
     };
     return truthy;} ;   // is site (row i, column j) full?
