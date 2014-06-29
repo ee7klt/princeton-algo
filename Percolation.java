@@ -24,8 +24,8 @@ public class Percolation {
  //(1,1) is top left    
      indexValidation(i,j);
      int index;
-     index = (i-1)*N+j;                  //start counting from top left, proceed vertically, then move up to next column (NOT standard cartesians)
-     System.out.println("Point ("+i+","+j+") maps to "+index);
+     index = (i-1)*N+j;                  //start counting from top left, proceed horizontally, then move up to next row (NOT standard cartesians)
+     //System.out.println("Point ("+i+","+j+") maps to "+index);
      return index;   
  }
  
@@ -51,7 +51,7 @@ public class Percolation {
      grid[bottomVirtual] = true;
      
       UF = new WeightedQuickUnionUF((int)Math.pow(N,2)+2);                //define new UF data structure
-     System.out.println(Arrays.toString(grid));
+     System.out.println("Fresh grid is "+Arrays.toString(grid));
      //System.out.println(UF.connected(1,2));
      
 
@@ -135,7 +135,7 @@ public class Percolation {
     };
       
         
-    
+    System.out.println("Updated grid is "+Arrays.toString(grid));
 };    
 
  
@@ -159,22 +159,34 @@ public boolean isFull(int i, int j){
     thisSite = xyto1D(i,j);
     if (UF.connected(thisSite,topVirtual) == true) {    //trace grid to root.
         truthy = true;                           //if root of current site is the top virtual site, the site is full
-    };
+       System.out.println("Site ("+i+","+j+") is full");
+    } else {
+       System.out.println("Site ("+i+","+j+") is NOT full");
+    }
     return truthy;} ;   // is site (row i, column j) full?
 
 
 public boolean percolates(){
     
-    //WeightedQuickUnionUF UF=new WeightedQuickUnionUF(N);
+    //System percolates if bottom virtual site is connected to top virtual site
+    boolean truthy = false;
+    if (UF.connected(topVirtual,bottomVirtual) == true) {
+        truthy = true; 
+        System.out.println("The System Percolates!");
+    } else {
+      System.out.println("The System does NOT Percolate!"); 
+    }
     
     
-    return true;}   ;          // does the system percolate?
+    return truthy;}   ;          // does the system percolate?
 
 
 public static void main(String[] args) {
     Percolation percolation = new Percolation(3);
-    percolation.xyto1D(1,1);
-    //percolation.open(2,2);
+    //percolation.xyto1D(1,3);
+    percolation.open(2,2);
+    percolation.isFull(2,2);
+    percolation.percolates();
     //percolation.open(2,1);
     //percolation.open(3,2);
     //percolation.open(3,1);
