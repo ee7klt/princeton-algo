@@ -36,7 +36,7 @@ public class Percolation {
      //top virtual site has index 0
      //bottom virtual site has index N^2+1
      //grid sites have indices 1 to N^2
-     System.out.println("Preparing "+N+" by "+N+" grid");
+     //System.out.println("Preparing "+N+" by "+N+" grid");
      grid = new boolean[(int)Math.pow(N,2)+2];
      
      //define bottom virtual site and top virtual site index
@@ -45,13 +45,13 @@ public class Percolation {
      
      
      //topVirtual and bottomVirtual should always be open!
-     System.out.println("Setting topVirtual "+topVirtual+" to true");
+     //System.out.println("Setting topVirtual "+topVirtual+" to true");
      grid[topVirtual] = true;
-      System.out.println("Setting bottomVirtual "+bottomVirtual+" to true");
+      //System.out.println("Setting bottomVirtual "+bottomVirtual+" to true");
      grid[bottomVirtual] = true;
      
       UF = new WeightedQuickUnionUF((int)Math.pow(N,2)+2);                //define new UF data structure
-     System.out.println("Fresh grid is "+Arrays.toString(grid));
+     //System.out.println("Fresh grid is "+Arrays.toString(grid));
      //System.out.println(UF.connected(1,2));
      
 
@@ -65,7 +65,7 @@ public class Percolation {
      
      if (grid[thisSite] == false) {   //open the site and connect to neighbors only if it has not been opened before.
      grid[thisSite] = true;   //mark site as open
-    System.out.println("Opening site (" + i +","+ j +")");
+    //System.out.println("Opening site (" + i +","+ j +")");
      
     
     //if site is on top row, connect it to the top virtual site
@@ -163,9 +163,9 @@ public boolean isFull(int i, int j){
     thisSite = xyto1D(i,j);
     if (UF.connected(thisSite,topVirtual) == true) {    //trace grid to root.
         truthy = true;                           //if root of current site is the top virtual site, the site is full
-       System.out.println("Site ("+i+","+j+") is full");
+       //System.out.println("Site ("+i+","+j+") is full");
     } else {
-       System.out.println("Site ("+i+","+j+") is NOT full");
+       //System.out.println("Site ("+i+","+j+") is NOT full");
     }
     return truthy;} ;   // is site (row i, column j) full?
 
@@ -176,9 +176,9 @@ public boolean percolates(){
     boolean truthy = false;
     if (UF.connected(topVirtual,bottomVirtual) == true) {
         truthy = true; 
-        System.out.println("The System Percolates!");
+        //System.out.println("The System Percolates!");
     } else {
-      System.out.println("The System does NOT Percolate!"); 
+      //System.out.println("The System does NOT Percolate!"); 
     }
     
     
