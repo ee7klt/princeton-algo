@@ -4,29 +4,28 @@ import java.util.Arrays;
 
 public class Percolation {
     
- private boolean[] grid;  //grid is [1,N^2]
+ private boolean[] grid;  //grid is [1,N^2], (1,1) is top left
  private int N;
  private WeightedQuickUnionUF UF; 
  private int nextSite;     // any of the neighboring sites
  private int thisSite;    //current site
-     //= new WeightedQuickUnionUF(N);
- private int topVirtual = 0;   //index of top virtual site in grid[]
- private int bottomVirtual = N^2+1; //index of bottom virtual site in grid[]
+ private int topVirtual;   //index of top virtual site in grid[]
+ private int bottomVirtual; //index of bottom virtual site in grid[]
  
  
  
  
  private void indexValidation(int i, int j) {   //throw exception for invalid indices
     if (i <= 0 || i > N) throw new IndexOutOfBoundsException("row index i out of bounds");
-     if (j <= 0 || j > N) throw new IndexOutOfBoundsException("row index i out of bounds");
+     if (j <= 0 || j > N) throw new IndexOutOfBoundsException("column index j out of bounds");
  }
  
- private int xyto1D(int i, int j) {    //maps cartesian i,j [1,N] to int [1,N^2]
-     
+ private int xyto1D(int i, int j) {    //maps row,column i,j [1,N] to int [1,N^2]
+ //(1,1) is top left    
      indexValidation(i,j);
      int index;
-     index = i*N+j;                  //start counting from bottom left, proceed horizontally, then move up to next row (standard cartesians)
-     //System.out.println(index);
+     index = (i-1)*N+j;                  //start counting from top left, proceed vertically, then move up to next column (NOT standard cartesians)
+     System.out.println("Point ("+i+","+j+") maps to "+index);
      return index;   
  }
  
@@ -37,7 +36,20 @@ public class Percolation {
      //top virtual site has index 0
      //bottom virtual site has index N^2+1
      //grid sites have indices 1 to N^2
-     grid = new boolean[(int)Math.pow(N,2)+2];         
+     System.out.println("Preparing "+N+" by "+N+" grid");
+     grid = new boolean[(int)Math.pow(N,2)+2];
+     
+     //define bottom virtual site and top virtual site index
+     topVirtual = 0;
+     bottomVirtual = (int)Math.pow(N,2)+1;
+     
+     
+     //topVirtual and bottomVirtual should always be open!
+     System.out.println("Setting topVirtual "+topVirtual+" to true");
+     grid[topVirtual] = true;
+      System.out.println("Setting bottomVirtual "+bottomVirtual+" to true");
+     grid[bottomVirtual] = true;
+     
       UF = new WeightedQuickUnionUF((int)Math.pow(N,2)+2);                //define new UF data structure
      System.out.println(Arrays.toString(grid));
      //System.out.println(UF.connected(1,2));
@@ -55,12 +67,12 @@ public class Percolation {
      
     
     //if site is on top row, connect it to the top virtual site
-    if (i == N) {
+    if (i == 1) {
          UF.union(thisSite,bottomVirtual);
     }
     
     //if site is on bottom row, connect it to bottom virtual site
-    if (i == 1) {
+    if (i == N) {
          UF.union(thisSite,topVirtual);
     }
     
@@ -68,7 +80,7 @@ public class Percolation {
     //if so, check to see if they are open
     //if so, connect them to present site
     
-    if (i > 1) {  //left
+    if (i > 1) {  //top
           
           if (isOpen(i-1,j)) {
               nextSite = xyto1D(i-1,j);
@@ -82,7 +94,7 @@ public class Percolation {
           };
 
     };
-     if (i <  N) {  //right
+     if (i <  N) {  //bottom
           if (isOpen(i+1,j)) {
               nextSite = xyto1D(i+1,j);
              System.out.println("right is open!");
@@ -95,7 +107,7 @@ public class Percolation {
           };
 
     };
-      if (j > 1) { //bottom
+      if (j > 1) { //left
           if (isOpen(i,j-1)) {
               nextSite = xyto1D(i,j-1);
              System.out.println("bottom is open!");
@@ -108,7 +120,7 @@ public class Percolation {
           };
 
     };
-       if (j < N) { //top
+       if (j < N) { //right
           if (isOpen(i,j+1)) {
               nextSite = xyto1D(i,j+1);
              System.out.println("top is open!");
@@ -161,11 +173,12 @@ public boolean percolates(){
 
 public static void main(String[] args) {
     Percolation percolation = new Percolation(3);
-    percolation.open(2,2);
-    percolation.open(2,1);
-    percolation.open(3,2);
-    percolation.open(3,1);
-    
+    percolation.xyto1D(1,1);
+    //percolation.open(2,2);
+    //percolation.open(2,1);
+    //percolation.open(3,2);
+    //percolation.open(3,1);
+   
     
     //percolation.isOpen(2,1);
     
