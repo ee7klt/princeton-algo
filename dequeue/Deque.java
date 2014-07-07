@@ -65,21 +65,25 @@ public class Deque<Item> implements Iterable<Item> {
     }
     public Item removeFirst()       {         // delete and return the item at the front (stack LIFO/queue FIFO)
       if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-      Item item = first.item; //save item to return
-      first = first.next;  //delete first node
-      if (isEmpty()) last = null;
+      Item item = pre.next.item; //save item to return
+      first = pre.next.next;  //delete first node
+      pre.next = first;
+      first.prev = pre;
+      //if (isEmpty()) last = null;
       N--;
       return item; // return saved item
     
     }
-   // public Item removeLast()       {          // delete and return the item at the end (neither stack nor queue)
-    //   if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-    //  Item item = last.item; //save item to return
-      
-    //  N--;
-    //  return item // return saved item
+    public Item removeLast()       {          // delete and return the item at the end (neither stack nor queue)
+       if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+      Item item = post.prev.item; //save item to return
+      last = post.prev.prev;
+      last.next = post;
+      post.prev = last;
+      N--;
+      return item // return saved item
     
-    //}
+    }
 public Iterator<Item> iterator()   {      // return an iterator over items in order from front to end
     return new ListIterator();
 }
