@@ -15,23 +15,26 @@ public class Deque<Item> implements Iterable<Item> {
     
     
     private int N;    //size of stack
-    private Node first,last; //top of stack
+    private Node pre,post; //top of stack
     
     private class Node {
       private Item item;
       private Node next;
+      private Node prev;
     }
     
     public Deque()   {                        // construct an empty deque 
-     first = null;
-     last = null;
+     pre = new Node();
+     post = new Node();
+     pre.next = post;
+     post.prev = pre;
      N = 0;
      //assert check();
     }
     
     
     public boolean isEmpty()    {             // is the deque empty?
-       return first == null;
+       return N == 0;
     }
     
     
@@ -39,20 +42,24 @@ public class Deque<Item> implements Iterable<Item> {
        return N;
     }
     public void addFirst(Item item)    {      // insert the item at the front (stack LIFO)
-         Node oldfirst = first;
-       first = new Node();
-       first.item = item;
-       first.next = oldfirst;
+        Node first = pre.next;
+        Node x = new Node();
+        x.item = item;
+        x.next = first;
+        x.prev = pre;
+        pre.next = x;
+        first.prev = x;
        N++;
        //assert check();
     }
     public void addLast(Item item)   {        // insert the item at the end (queue FIFO)
-        Node oldlast = last;
-       last = new Node();
-       last.item = item;
-       last.next = null;
-       if (isEmpty()) first = last;
-       else oldlast.next = last;
+       Node last = post.prev;
+       Node x = new Node();
+       x.item = item;
+       x.next = post;
+       x.prev = last;
+       post.prev = x;
+       last.next = x;
        N++;
        //assert check();
     }
@@ -92,8 +99,8 @@ private class ListIterator implements Iterator<Item> {
 }
     
     public static void main(String[] args) {  // unit testing
-    
-    
+       Deque deque = new Deque();
+       System.out.println(deque);
     }
 }
 
