@@ -62,7 +62,7 @@ public class Deque<Item> implements Iterable<Item> {
       first = first.next;  //delete first node
       if (isEmpty()) last = null;
       N--;
-      return item // return saved item
+      return item; // return saved item
     
     }
    // public Item removeLast()       {          // delete and return the item at the end (neither stack nor queue)
@@ -72,8 +72,25 @@ public class Deque<Item> implements Iterable<Item> {
     //  N--;
     //  return item // return saved item
     
-    }
-   //public Iterator<Item> iterator()         // return an iterator over items in order from front to end
+    //}
+public Iterator<Item> iterator()   {      // return an iterator over items in order from front to end
+    return new ListIterator();
+}
+
+private class ListIterator implements Iterator<Item> {
+   private Node current = first;
+   public boolean hasNext() {return current != null; }
+   public void remove() {throw new UnsupportedOperationException();}
+   
+   public Item next() {
+     if (!hasNext()) throw new NoSuchElementException();
+     Item item = current.item;
+     current=current.next;
+     return item;
+   }
+
+}
+    
     public static void main(String[] args) {  // unit testing
     
     
