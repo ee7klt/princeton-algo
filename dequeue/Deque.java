@@ -66,7 +66,7 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeFirst()       {         // delete and return the item at the front (stack LIFO/queue FIFO)
       if (isEmpty()) throw new NoSuchElementException("Stack underflow");
       Item item = pre.next.item; //save item to return
-      first = pre.next.next;  //delete first node
+      Node first = pre.next.next;  //delete first node
       pre.next = first;
       first.prev = pre;
       //if (isEmpty()) last = null;
@@ -77,11 +77,11 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeLast()       {          // delete and return the item at the end (neither stack nor queue)
        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
       Item item = post.prev.item; //save item to return
-      last = post.prev.prev;
+      Node last = post.prev.prev;
       last.next = post;
       post.prev = last;
       N--;
-      return item // return saved item
+      return item; // return saved item
     
     }
 public Iterator<Item> iterator()   {      // return an iterator over items in order from front to end
@@ -89,15 +89,31 @@ public Iterator<Item> iterator()   {      // return an iterator over items in or
 }
 
 private class ListIterator implements Iterator<Item> {
-   private Node current = first;
-   public boolean hasNext() {return current != null; }
+   private Node current = pre.next;
+   private Node lastAccessed = null;
+   private int index = 0;
+   
+   public boolean hasNext() {return index < N; }
+   public boolean hasPrevious() {return index > 0;}
+   public int previousIndex() {return index - 1;}
+   public int nextIndex() {return index;}
    public void remove() {throw new UnsupportedOperationException();}
    
    public Item next() {
      if (!hasNext()) throw new NoSuchElementException();
+     lastAccessed = current;
      Item item = current.item;
      current=current.next;
+     index++;
      return item;
+   }
+   
+   public Item previous() {
+     if (!hasPrevious()) throw new NoSuchElementException();
+     current = current.prev;
+     index--;
+     lastAccessed = current;
+     return current.item;
    }
 
 }
