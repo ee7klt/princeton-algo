@@ -119,8 +119,24 @@ private class ListIterator implements Iterator<Item> {
 }
     
     public static void main(String[] args) {  // unit testing
-       Deque deque = new Deque();
-       System.out.println(deque);
+       Deque<Integer> deque = new Deque<Integer>();
+       //System.out.println(deque.isEmpty());
+       deque.addFirst(2);
+       //System.out.println(deque.isEmpty());
+       //System.out.println(deque.removeFirst());
+       //System.out.println(deque.isEmpty());
+       deque.addFirst(3);
+       deque.addFirst(4);
+       deque.addFirst(5);
+        //System.out.println(deque.removeFirst());
+         //System.out.println(deque.removeLast());
+         deque.addLast(6);
+         //System.out.println(deque.removeLast());
+         Iterator<Integer> i = deque.iterator();
+         while (i.hasNext()) {
+             Integer inte = i.next();
+             System.out.println(inte);
+         }
     }
 }
 
