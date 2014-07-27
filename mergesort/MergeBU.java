@@ -5,6 +5,7 @@ import java.util.Comparator;
 public class MergeBU
 {
     private static Comparable[] aux;
+    public static int iter=0;
     
     
     public static void merge (Comparable[] a, int lo, int mid, int hi)
@@ -42,16 +43,20 @@ private static boolean less(Comparable v, Comparable w) {
         int N = a.length;
         aux = new Comparable[N];
         for (int sz = 1; sz < N; sz = sz+sz)
-            for (int lo = 0; lo < N-sz; lo += sz+sz)
+            for (int lo = 0; lo < N-sz; lo += sz+sz) {
                 merge(a,lo,lo+sz-1, Math.min(lo+sz+sz-1, N-1));
+                System.out.printf("%d: %s\n",++iter,Arrays.toString(a));
+            }
     }
     
     
     public static void main(String[] args) {
-    Comparable[] a  = {5,2,4,3,1,9};
-    //System.out.println(Arrays.toString(a));
+        
+        MergeBU BU = new MergeBU();
+    Comparable[] a  = {98, 69, 27, 52, 65, 35, 30, 16, 97, 64};
+    System.out.printf("0: %s\n",Arrays.toString(a));
     //merge(a,0,2,5);
-    sort(a);
+    BU.sort(a);
     //System.out.println(Arrays.toString(a));
     
     

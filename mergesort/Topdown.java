@@ -6,6 +6,7 @@ public class Topdown
     
 {
     private static Comparable[] aux;
+    public static int iter = 0;
     
     public static void sort(Comparable[] a)
     {
@@ -18,10 +19,10 @@ public class Topdown
         if (hi <= lo) return;
         int mid = lo + (hi - lo)/2;
         String arrstr = Arrays.toString(a);
-        System.out.printf("sort(%s,%d, %d)\n",arrstr,lo,hi);
+        //System.out.printf("sort(%s,%d, %d)\n",arrstr,lo,hi);
         sort(a, lo, mid);
         int midhi=mid + (hi - mid)/2;
-         System.out.printf("sort(%s,%d, %d)\n",arrstr,mid+1,hi);
+        // System.out.printf("sort(%s,%d, %d)\n",arrstr,mid+1,hi);
         sort(a, mid+1, hi);
         merge(a, lo, mid, hi);
     }
@@ -41,7 +42,7 @@ public class Topdown
     
     //System.out.println(Arrays.toString(aux));
     String arrstr = Arrays.toString(a);
-        System.out.printf("merge(%s,%d, %d, %d)\n",arrstr,lo,mid,hi);
+        //System.out.printf("merge(%s,%d, %d, %d)\n",arrstr,lo,mid,hi);
     
     for (int k = lo; k <= hi; k++) {
         tmp = a[k];
@@ -68,7 +69,7 @@ public class Topdown
     }
     
      
-    System.out.println(Arrays.toString(a));
+    System.out.printf("%d: %s\n",++iter,Arrays.toString(a));
     
     
     
@@ -81,11 +82,12 @@ private static boolean less(Comparable v, Comparable w) {
     
 
 public static void main(String[] args) {
-    Comparable[] a  = {5,2,4,3,1,9};
-    System.out.println(Arrays.toString(a));
+    Topdown TD = new Topdown();
+    Comparable[] a  = {39, 80, 24, 68, 98, 25, 22, 91, 71, 67, 20, 38};
+    System.out.printf("0: %s\n",Arrays.toString(a));
     //merge(a,0,2,5);
-    sort(a,0,5);
-    System.out.println(Arrays.toString(a));
+    TD.sort(a,0,11);
+    //System.out.println(Arrays.toString(a));
     
     
  
