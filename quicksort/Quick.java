@@ -38,7 +38,6 @@ public class Quick
         }
         System.out.printf("i = %d, j = %d\n",i,j);
         exch(a, lo, j);
-        
         return j;
         
     }
@@ -49,6 +48,7 @@ public class Quick
     
         // exchange a[i] and a[j]
     private static void exch(Object[] a, int i, int j) {
+         System.out.printf("%s\n", Arrays.toString(a));
         Object swap = a[i];
         a[i] = a[j];
         a[j] = swap;
@@ -56,12 +56,12 @@ public class Quick
     }
     
     public static void main(String[] args) {
-    Comparable[] a  = {'A', 'B', 'A', 'A', 'A', 'B', 'B', 'B', 'A', 'B', 'B', 'A'};
+    Comparable[] a  = { 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'A', 'A', 'B', 'A', 'A'  };
     
     Quick quick = new Quick();
     System.out.println(Arrays.toString(a));
     //merge(a,0,2,5);
-    Quick.sort(a);
+    Quick.partition(a,0,11);
  //System.out.println(Arrays.toString(a));
  
 
