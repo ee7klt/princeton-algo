@@ -11,6 +11,7 @@
  *************************************************************************/
 
 import java.util.Comparator;
+import java.util.Arrays;
 
 public class Point implements Comparable<Point> {
 
@@ -62,11 +63,13 @@ public class Point implements Comparable<Point> {
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
         int truthy = 0;
-        if (this.y < that.y) {
-           truthy = 1;
+        if (this.x == that.x && this.y == that.y) {
+          truthy = 0;
+        } else if (this.y < that.y) {
+           truthy = -1;
         } else if ((this.y == that.y) && (this.x < that.x)) {
-           truthy = 1;
-        }
+           truthy = -1;
+        } else truthy = 1;
         return truthy;
         
     }
@@ -82,11 +85,16 @@ public class Point implements Comparable<Point> {
         /* YOUR CODE HERE */
         Point point1 = new Point(2,3);
         Point point2 = new Point(6,-6);
+        Point point3 = new Point(5,3);
         double slope = point1.slopeTo(point2);
         System.out.println(slope);
-        point1.draw();
-        point2.draw();
-        point1.drawTo(point2);
+        System.out.println(point1.compareTo(point2));
+        System.out.println(point2.compareTo(point1));
+         System.out.println(point1.compareTo(point1));
+         Point[] points = new Point[] {point1,point2,point3};
+         Arrays.sort(points);
+         System.out.println(Arrays.toString(points));
+      
         
     }
 }

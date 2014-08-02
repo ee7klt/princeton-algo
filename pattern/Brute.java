@@ -1,3 +1,6 @@
+import java.util.Arrays;
+
+
 public class Brute {
     
  
@@ -27,26 +30,20 @@ public class Brute {
            Point point1 = points[i];
            int count = 0;
            double oldSlope = 0;
-           Boolean[] pointsTruthy = new Boolean[points.length];
+           double[] slopes = new double[points.length];
            
            for (int k = 0; k < points.length; k++) {
-               pointsTruthy[k] = false;
+               slopes[k] = 0.;
            
            }
             for (int j = 0; j < points.length; j++) {
                Point point2 = points[j];
-               double newSlope = point1.slopeTo(point2);
-               if (newSlope == oldSlope) {
-                  ++count;
-                  pointsTruthy[i] = true;
-                  
-               }
-               oldSlope = newSlope;
-               
-               
-            
+               double slope = point1.slopeTo(point2);
+                slopes[j] = slope;
+
+  
             }
-            
+            System.out.println(Arrays.toString(slopes));
             
         }
         
