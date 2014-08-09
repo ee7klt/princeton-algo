@@ -23,6 +23,8 @@ public class Point implements Comparable<Point> {
     public double pInf = Double.POSITIVE_INFINITY;
     public double nInf = Double.NEGATIVE_INFINITY;
 
+    
+    
     // create the point (x, y)
     public Point(int x, int y) {
         /* DO NOT MODIFY */
@@ -83,17 +85,29 @@ public class Point implements Comparable<Point> {
     // unit test
     public static void main(String[] args) {
         /* YOUR CODE HERE */
+        
+        StdDraw.setXscale(0, 32768);
+        StdDraw.setYscale(0, 32768);
+        StdDraw.show(0);
+        StdDraw.setPenRadius(0.01);  // make the points a bit larger
+
         Point point1 = new Point(2,3);
-        Point point2 = new Point(6,-6);
-        Point point3 = new Point(5,3);
-        double slope = point1.slopeTo(point2);
-        System.out.println(slope);
-        System.out.println(point1.compareTo(point2));
-        System.out.println(point2.compareTo(point1));
-         System.out.println(point1.compareTo(point1));
-         Point[] points = new Point[] {point1,point2,point3};
-         Arrays.sort(points);
-         System.out.println(Arrays.toString(points));
+        Point point2 = new Point(4,9);
+        //Point point2 = new Point(6,-6);
+        //Point point3 = new Point(5,3);
+        //double slope = point1.slopeTo(point2);
+        //System.out.println(slope);
+        //System.out.println(point1.compareTo(point2));
+        //System.out.println(point2.compareTo(point1));
+         //System.out.println(point1.compareTo(point1));
+         //Point[] points = new Point[] {point1,point2,point3};
+         //Arrays.sort(points);
+         //System.out.println(Arrays.toString(points));
+         point1.draw();
+         point2.draw();
+         //point1.drawTo(point2);
+          StdDraw.show(0);
+         
       
         
     }

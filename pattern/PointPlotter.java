@@ -14,10 +14,10 @@ public class PointPlotter {
     public static void main(String[] args) {
 
         // rescale coordinates and turn on animation mode
-        StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
+        StdDraw.setXscale(0, 10);
+        StdDraw.setYscale(0, 10);
         StdDraw.show(0);
-        StdDraw.setPenRadius(0.01);  // make the points a bit larger
+        StdDraw.setPenRadius(0.1);  // make the points a bit larger
 
         
         
