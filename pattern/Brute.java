@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Scanner;
+import java.io.IOException;
 
 
 public class Brute {
@@ -14,15 +16,17 @@ public class Brute {
    
         Boolean truthy = false;
      
-     
+        
         Double slope = tuple[0].slopeTo(tuple[1]);
-     
+        //System.out.printf("i = 1, slope = %f\n",slope);
         int i = 2;
         while (slope == tuple[0].slopeTo(tuple[i++])) {
-           if (i == tuple.length) break;   
+            //System.out.printf("i = %d, slope = %f\n",i-1,tuple[0].slopeTo(tuple[i-1]));
+            if (i == 4) {truthy = true;}
+            if (i == tuple.length) break;   
         }
-     
-        if (i == 4) {truthy = true;}
+        //System.out.println(i);
+        
         
         return truthy;
     }
@@ -32,6 +36,17 @@ public class Brute {
  
     
     public static void main(String[] args) {
+        
+        
+        //init
+  Scanner sc = new Scanner(System.in);
+        
+         StdDraw.setXscale(0, 32768);
+        StdDraw.setYscale(0, 32768);
+       
+        StdDraw.setPenRadius(0.01);  // make the points a bit larger
+        
+        
       // read in the input
       
          String filename = args[0];
@@ -43,15 +58,17 @@ public class Brute {
             int y = in.readInt();
             Point p = new Point(x, y);
             points[i] = p;
+            //draw all points
+             p.draw();   
+             
         }
         
+       
         
-        
-       StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
-        StdDraw.show(0);
-        StdDraw.setPenRadius(0.01);  // make the points a bit larger
-
+      
+         StdDraw.show(0);
+       System.out.print("Points drawn. Press any key to continue.\n");
+      sc.nextLine();
         
         
         
@@ -59,23 +76,35 @@ public class Brute {
         
       
         for (int i=0; i < points.length; i++) {
-             points[i].draw();   
-             StdDraw.show(0);
+            
+             
+             //find combination of all 4-tuples
             for (int j=0; j<i; j++) {
                 for (int k = 0; k < j; k++) {
                     for (int l = 0; l < k; l++) { 
                         Point[] tuple = {points[i],points[j],points[k],points[l]};
-                        Boolean a = checkSlopes(tuple);
-                        //System.out.println(a);
-                        if (a == true) {
+                        
+                        //are all 4 points in this particular combination collinear?
+                        //System.out.println(Arrays.toString(tuple));
+                        Boolean collinear = checkSlopes(tuple);
+                        //System.out.printf("Collinear? %s\n",collinear);
+                        //System.out.printf("--------------------------\n");
+                        
+                        //if collinear, do stuff
+                        if (collinear == true) {
+                            
+                            //put the 4 points in lexicographic order
                             Arrays.sort(tuple);
-                            //System.out.println(Arrays.toString(tuple));
+                            
+                            //print out the points
                             System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
-                            for (int m = 0; m < tuple.length; m++) {
+                           // for (int m = 0; m < tuple.length; m++) {
                      
                               
-                            }
-                            tuple[0].drawTo(tuple[3]);
+                          // }
+                            
+                            //draw line from smallest point to largest point
+                           tuple[0].drawTo(tuple[3]);
                              StdDraw.show(0);
                               // reset the pen radius
                             StdDraw.setPenRadius();
