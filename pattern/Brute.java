@@ -59,6 +59,8 @@ public class Brute {
         
       
         for (int i=0; i < points.length; i++) {
+             points[i].draw();   
+             StdDraw.show(0);
             for (int j=0; j<i; j++) {
                 for (int k = 0; k < j; k++) {
                     for (int l = 0; l < k; l++) { 
@@ -66,12 +68,17 @@ public class Brute {
                         Boolean a = checkSlopes(tuple);
                         //System.out.println(a);
                         if (a == true) {
-                            System.out.println(Arrays.toString(Arrays.sort(tuple)));
+                            Arrays.sort(tuple);
+                            //System.out.println(Arrays.toString(tuple));
+                            System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
                             for (int m = 0; m < tuple.length; m++) {
                      
-                               tuple[m].draw();
-                                StdDraw.show(0);
+                              
                             }
+                            tuple[0].drawTo(tuple[3]);
+                             StdDraw.show(0);
+                              // reset the pen radius
+                            StdDraw.setPenRadius();
                         
                         }
                         
