@@ -12,7 +12,7 @@ public class Brute {
     * find out if the tuples are collinear
     */
     
-    public static boolean checkSlopes(Point[] tuple) {
+    private static boolean checkSlopes(Point[] tuple) {
    
         Boolean truthy = false;
      

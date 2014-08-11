@@ -20,8 +20,8 @@ public class Point implements Comparable<Point> {
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
-    public double pInf = Double.POSITIVE_INFINITY;
-    public double nInf = Double.NEGATIVE_INFINITY;
+    private double pInf = Double.POSITIVE_INFINITY;
+    private double nInf = Double.NEGATIVE_INFINITY;
 
     
     

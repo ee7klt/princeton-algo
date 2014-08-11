@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Fast {
     
-        public static int checkSlopesFast(Point[] tuple) {
+        private static int checkSlopesFast(Point[] tuple) {
    
         Boolean truthy = false;
      
