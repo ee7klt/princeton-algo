@@ -39,7 +39,7 @@ public class Brute {
         
         
         //init
-  Scanner sc = new Scanner(System.in);
+  //Scanner sc = new Scanner(System.in);
         
          StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
@@ -67,8 +67,8 @@ public class Brute {
         
       
          StdDraw.show(0);
-       System.out.print("Points drawn. Press any key to continue.\n");
-      sc.nextLine();
+       //System.out.print("Points drawn. Press any key to continue.\n");
+      //sc.nextLine();
         
         
         
@@ -97,7 +97,7 @@ public class Brute {
                             Arrays.sort(tuple);
                             
                             //print out the points
-                            //System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
+                            System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
                            // for (int m = 0; m < tuple.length; m++) {
                      
                               
