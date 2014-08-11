@@ -97,7 +97,7 @@ public class Brute {
                             Arrays.sort(tuple);
                             
                             //print out the points
-                            System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
+                            //System.out.printf("%s -> %s -> %s -> %s\n",tuple[0],tuple[1],tuple[2],tuple[3]);
                            // for (int m = 0; m < tuple.length; m++) {
                      
                               

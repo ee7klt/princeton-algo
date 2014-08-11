@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class Point implements Comparable<Point> {
 
     // compare points by slope
-    //public final Comparator<Point> SLOPE_ORDER;       // YOUR DEFINITION HERE
+    public final Comparator<Point> SLOPE_ORDER = new BySlope();;       // YOUR DEFINITION HERE
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
@@ -24,6 +24,15 @@ public class Point implements Comparable<Point> {
     public double nInf = Double.NEGATIVE_INFINITY;
 
     
+    
+    private  class BySlope implements Comparator<Point> {
+        public int compare(Point p1, Point p2) {
+            
+            //casting as int is a hack until i can figure out a more precise solution
+            return (int) (Point.this.slopeTo(p1) - Point.this.slopeTo(p2)); 
+        
+        }
+    }
     
     // create the point (x, y)
     public Point(int x, int y) {
