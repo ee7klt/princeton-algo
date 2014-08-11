@@ -29,7 +29,18 @@ public class Point implements Comparable<Point> {
         public int compare(Point p1, Point p2) {
             
             //casting as int is a hack until i can figure out a more precise solution
-            return (int) (Point.this.slopeTo(p1) - Point.this.slopeTo(p2)); 
+            //return (int) (Point.this.slopeTo(p1) - Point.this.slopeTo(p2)); 
+            
+            //SOLUTION!!
+            double diff = Point.this.slopeTo(p1) - Point.this.slopeTo(p2);
+            
+            if (diff > 0) {
+                return 1;
+            }else if (diff < 0) {
+                return -1;
+            }
+            else return 0;
+            
         
         }
     }
