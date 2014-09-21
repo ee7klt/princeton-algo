@@ -5,29 +5,45 @@ import java.io.IOException;
 
 public class Fast {
     
-        private static int checkSlopesFast(Point[] tuple) {
-   
-        Boolean truthy = false;
-     
         
-        Double slope = tuple[0].slopeTo(tuple[1]);
-        //System.out.printf("i = 1, slope = %f\n",slope);
-        int i = 2;
-        int index = 1;
-        
-        
-        
-        while (slope == tuple[0].slopeTo(tuple[i++])) {
-            //System.out.printf("i = %d, slope = %f\n",i-1,tuple[0].slopeTo(tuple[i-1]));
-            index++;
-            if (i == tuple.length) break;   
-        }
-        //System.out.println(i);
-        
-        
-        return index;
-    }
     
+//        private static int checkSlopesFast(Point[] tuple) {
+//        //this doesn't work because the common slopes may not be at the beginning of the array.
+//        Boolean truthy = false;
+//     
+//        
+//        Double slope = tuple[0].slopeTo(tuple[1]);
+//        //System.out.printf("i = 1, slope = %f\n",slope);
+//        int i = 2;
+//        int index = 1;
+//        
+//        
+//        
+//        while (slope == tuple[0].slopeTo(tuple[i++])) {
+//            //System.out.printf("i = %d, slope = %f\n",i-1,tuple[0].slopeTo(tuple[i-1]));
+//            index++;
+//            if (i == tuple.length) break;   
+//        }
+//        //System.out.println(i);
+//        
+//        
+//        return index;
+//    }
+//    
+    
+    private static int checkSlopesFast(Point[] points) {
+    
+        int i = 1;
+        int count = 0;
+        while (count == 0) {
+            
+        
+        
+        
+        }
+    
+    
+    }
     
     public static void main(String[] args) {
     

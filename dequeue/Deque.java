@@ -122,15 +122,16 @@ private class ListIterator implements Iterator<Item> {
     
     public static void main(String[] args) {  // unit testing
        Deque<Integer> deque = new Deque<Integer>();
-       //System.out.println(deque.isEmpty());
-       //deque.addFirst(1);
-      // deque.addFirst(2);
-       //System.out.println(deque.isEmpty());
-       //System.out.println(deque.removeFirst());
-       //System.out.println(deque.isEmpty());
-       //deque.addFirst(3);
-       //deque.addFirst(4);
-       //deque.addFirst(5);
+       System.out.println(deque.isEmpty());
+       deque.addFirst(1);
+       deque.addFirst(2);
+//       System.out.println(deque.isEmpty());
+//       System.out.println(deque.removeFirst());
+//       System.out.println(deque.isEmpty());
+       deque.addFirst(3);
+       deque.addFirst(4);
+       deque.addFirst(5);
+//       System.out.println(deque.removeLast());
       
         //System.out.println(deque.removeFirst());
          //System.out.println(deque.removeLast());
