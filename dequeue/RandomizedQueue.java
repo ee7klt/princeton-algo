@@ -110,7 +110,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         
     }
     
-    
+
     /**
      * an iterator, doesn't implement remove()
      */
@@ -119,7 +119,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
           
          
          private Item[] copy = Arrays.copyOf(a,N);
-         StdRandom.shuffle(copy);
+//         
+//    
+//         StdRandom.shuffle(copy);
+         
          private int i = N;
          
         
@@ -152,22 +155,23 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
          }
 
          
-         for (int j = 1; j < 10; j++) {
-             System.out.println(randq.sample());
-       // System.out.println(randq.dequeue());
-       // System.out.println(Arrays.toString(randq.a));
-        //System.out.println(randq.size());
-        
-        }
+//         for (int j = 1; j < 10; j++) {
+//             System.out.println(randq.sample());
+//       // System.out.println(randq.dequeue());
+//       // System.out.println(Arrays.toString(randq.a));
+//        //System.out.println(randq.size());
+//        
+//        }
          
          
-          StdRandom.shuffle(randq.a);
-          System.out.println(Arrays.toString(randq.a));
-          StdRandom.shuffle(randq.a);
-          System.out.println(Arrays.toString(randq.a));
+//          StdRandom.shuffle(randq.a);
+//          System.out.println(Arrays.toString(randq.a));
+//          StdRandom.shuffle(randq.a);
+//          System.out.println(Arrays.toString(randq.a));
 //          
 //          int sz = randq.size();
-//         int[] copy = Arrays.copyOf(randq.a,sz);
+//         Item[] copy = Arrays.copyOf(randq.a,sz);
+//         StdRandom.shuffle(copy);
 //         System.out.println(Arrays.toString(copy));
 //         
         
