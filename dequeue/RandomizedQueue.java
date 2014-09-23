@@ -116,18 +116,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     private class RandIterator implements Iterator<Item> {
         private Item[] copy;
-         
+          private int i = N;
         
         /**
          * put shuffle inside iterator class constructor method
          */
-        RandIterator() {
+        public RandIterator() {
            copy = Arrays.copyOf(a,N);
            StdRandom.shuffle(copy);
         
         }
          
-         private int i = N;
+        
          
         
        public void remove() {throw new UnsupportedOperationException();}
@@ -148,23 +148,24 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         for (int i = 1; i < 10; i++) {
         randq.enqueue(i);
         System.out.println(Arrays.toString(randq.a));
-        System.out.println(randq.size());
+        //System.out.println(randq.size());
         
         }
-        
+        System.out.println("------------");
           Iterator<Integer> i = randq.iterator();
+          System.out.println(i);
          while (i.hasNext()) {
              Integer inte = i.next();
              System.out.println(inte);
          }
          
-         System.out.println("------------");
          
-         Iterator<Integer> j = randq.iterator();
-         while (j.hasNext()) {
-             Integer inte = j.next();
-             System.out.println(inte);
-         }
+         
+//         Iterator<Integer> j = randq.iterator();
+//         while (j.hasNext()) {
+//             Integer inte = j.next();
+//             System.out.println(inte);
+//         }
 
          
 //         for (int j = 1; j < 10; j++) {
