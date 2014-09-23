@@ -115,13 +115,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      * an iterator, doesn't implement remove()
      */
     private class RandIterator implements Iterator<Item> {
-        
-          
+        private Item[] copy;
          
-         private Item[] copy = Arrays.copyOf(a,N);
-//         
-//    
-//         StdRandom.shuffle(copy);
+        
+        /**
+         * put shuffle inside iterator class constructor method
+         */
+        RandIterator() {
+           copy = Arrays.copyOf(a,N);
+           StdRandom.shuffle(copy);
+        
+        }
          
          private int i = N;
          
@@ -151,6 +155,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
           Iterator<Integer> i = randq.iterator();
          while (i.hasNext()) {
              Integer inte = i.next();
+             System.out.println(inte);
+         }
+         
+         System.out.println("------------");
+         
+         Iterator<Integer> j = randq.iterator();
+         while (j.hasNext()) {
+             Integer inte = j.next();
              System.out.println(inte);
          }
 
