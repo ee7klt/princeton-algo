@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 
 
+
 public class Deque<Item> implements Iterable<Item> {
     
     
@@ -54,7 +55,7 @@ public class Deque<Item> implements Iterable<Item> {
        //assert check();
     }
     public void addLast(Item item)   {        // insert the item at the end (queue FIFO)
-        if (item == null) throw new NoSuchElementException("Cannot add null");
+        if (item == null) throw new NullPointerException("Cannot add null");
        Node last = post.prev;
        Node x = new Node();
        x.item = item;
@@ -66,7 +67,7 @@ public class Deque<Item> implements Iterable<Item> {
        //assert check();
     }
     public Item removeFirst()       {         // delete and return the item at the front (stack LIFO/queue FIFO)
-      if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+      if (isEmpty()) throw new NullPointerException("Stack underflow");
       Item item = pre.next.item; //save item to return
       Node first = pre.next.next;  //delete first node
       pre.next = first;
@@ -142,6 +143,9 @@ private class ListIterator implements Iterator<Item> {
              Integer inte = i.next();
              System.out.println(inte);
          }
+         
+         deque.addFirst(null);
+         deque.addLast(null);
     }
 }
 

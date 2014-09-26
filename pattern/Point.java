@@ -17,6 +17,9 @@ public class Point implements Comparable<Point> {
 
     // compare points by slope
     public final Comparator<Point> SLOPE_ORDER = new BySlope();;       // YOUR DEFINITION HERE
+    
+    //compare points by height
+   //  public final Comparator<Point> HEIGHT_ORDER = new ByHeight();;
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
@@ -24,7 +27,14 @@ public class Point implements Comparable<Point> {
     private double nInf = Double.NEGATIVE_INFINITY;
 
     
-    
+    /**
+     * @this: point to which p1 and p2 is referenced
+     * @param p1: first point to compare with this
+     * @param p2: second point to compare with this
+     * @return 1 if slope from this point to p1 is greater than slope to p2
+     * @return -1 if slope from this point to p1 is less than slope to p2
+     * @return 0 if slopes to p1 and p2 from this point are equal
+     */
     private  class BySlope implements Comparator<Point> {
         public int compare(Point p1, Point p2) {
             
@@ -82,6 +92,33 @@ public class Point implements Comparable<Point> {
 
     // is this point lexicographically smaller than that one?
     // comparing y-coordinates and breaking ties by x-coordinates
+    
+    
+     /**
+     * @this: point to which @that is referenced
+     * @return 1 if @that is higher than @this by lexicographic order
+     * @return -1 if @that is lower than @this by lexicographic order
+     * @return 0 if @this == @that are the same points
+     */
+    
+//      private  class ByHeight implements Comparator<Point> {
+//    public int compare(Point p1) {
+//        /* YOUR CODE HERE */
+//        int truthy = 0;
+//        if (this.x == p1.x && this.y == p1.y) {
+//          truthy = 0;
+//        } else if (this.y < p1.y) {
+//           truthy = -1;
+//        } else if ((this.y == p1.y) && (this.x < p1.x)) {
+//           truthy = -1;
+//        } else truthy = 1;
+//        return truthy;
+//        
+//    }
+//     }
+      
+      
+     
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
         int truthy = 0;
@@ -95,6 +132,7 @@ public class Point implements Comparable<Point> {
         return truthy;
         
     }
+     
 
     // return string representation of this point
     public String toString() {

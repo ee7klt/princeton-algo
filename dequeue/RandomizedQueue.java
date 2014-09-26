@@ -60,7 +60,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      * if array is full, double its size
      */
     public void enqueue(Item item)          { // add the item
-        if (item == null) throw new NoSuchElementException("Cannot add null");
+        if (item == null) throw new NullPointerException("Cannot add null");
         if (N == a.length) resize(2*a.length);
         //System.out.println(N);
         if (N>0) {
@@ -159,7 +159,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
              System.out.println(inte);
          }
          
-         
+         randq.enqueue(null);
          
 //         Iterator<Integer> j = randq.iterator();
 //         while (j.hasNext()) {
