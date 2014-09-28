@@ -18,8 +18,7 @@ public class Point implements Comparable<Point> {
     // compare points by slope
     public final Comparator<Point> SLOPE_ORDER = new BySlope();;       // YOUR DEFINITION HERE
     
-    //compare points by height
-     public final Comparator<Point> HEIGHT_ORDER = new ByHeight();;
+    
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
@@ -144,13 +143,32 @@ public class Point implements Comparable<Point> {
     public static void main(String[] args) {
         /* YOUR CODE HERE */
         
-        StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
-        StdDraw.show(0);
-        StdDraw.setPenRadius(0.01);  // make the points a bit larger
+//        StdDraw.setXscale(0, 32768);
+//        StdDraw.setYscale(0, 32768);
+//        StdDraw.show(0);
+//        StdDraw.setPenRadius(0.01);  // make the points a bit larger
 
-        Point point1 = new Point(2,3);
-        Point point2 = new Point(4,9);
+        
+       
+        
+      Point point1 = new Point(  10000 ,     0);
+ Point point2 = new Point(   0 , 10000);
+Point point3 = new Point( 3000 ,  7000);
+Point point4 = new Point( 7000 ,  3000);
+Point point5 = new Point(20000 , 21000);
+Point point6 = new Point( 3000 ,  4000);
+Point point7 = new Point(14000 , 15000);
+Point point8 = new Point( 6000 ,  7000);
+
+Point[] points = {point1,point2,point3,point4,point5,point6,point7,point8};
+
+for (int i =0;i<8;i++) {
+    for (int j =0;j<8;j++) {
+   System.out.println(points[j].compareTo(points[i]));
+    }
+}
+
+
         //Point point2 = new Point(6,-6);
         //Point point3 = new Point(5,3);
         //double slope = point1.slopeTo(point2);
@@ -161,10 +179,10 @@ public class Point implements Comparable<Point> {
          //Point[] points = new Point[] {point1,point2,point3};
          //Arrays.sort(points);
          //System.out.println(Arrays.toString(points));
-         point1.draw();
-         point2.draw();
-         //point1.drawTo(point2);
-          StdDraw.show(0);
+//         point1.draw();
+//         point2.draw();
+//         //point1.drawTo(point2);
+//          StdDraw.show(0);
          
       
         

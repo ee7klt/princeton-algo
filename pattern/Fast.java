@@ -75,6 +75,7 @@ public class Fast {
           */
               
           Point[] copy = Arrays.copyOf(points,points.length);
+          Point[] temp = new Point[points.length+1];
           
           
          for (int i=0; i < points.length ; i++) {
@@ -101,34 +102,63 @@ public class Fast {
           int ncoll = 0;        //number of points collinear, in addition to present point
           int start_j = 0;
           int end_j = 0;
-          Double slope = copy[0].slopeTo(copy[1]);
+           int count = 0;
+          Double slope = points[i].slopeTo(copy[0]);
+          
+         
+          Arrays.fill(temp, null);
+          temp[0] = points[i];
+          /**
+           * Compute slopes to all other points with respect to current point, points[i]
+           * looks for "runs" of equal slopes.
+           * if "run" is greater than 3, print out line and output points
+           */
+         // System.out.println(Arrays.toString(copy));
           for (int j = 1; j < points.length;j++) {
-                Double presentSlope = copy[0].slopeTo(copy[j]); 
+                Double presentSlope = points[i].slopeTo(copy[j]); 
                 
+                //System.out.printf("%s,%s\n", copy[j-1],copy[j]);
+                //System.out.println((copy[j-1].compareTo(copy[j])));
                 
                 /**
                  * only count points that are collinear, and run is in lexicographic order, so we don't print subset of lines, 
                  * or multiple lines on a given run
+                 * && (copy[j-1].compareTo(copy[j]) > 0)
+                 * 
                  */
-                if ((Math.abs(presentSlope - slope) <0.0001) && (copy[j].compareTo[j+1] >0) ){
-                    System.out.println("presentSlope == slope");
-                    ncoll++;
+                
+               
+                if (Math.abs(presentSlope - slope) <0.0001){    //if we get consecutively identical slopes
+                   
+                    ncoll++;        //increment run counter
                     end_j = j;
+                    temp[count++]=copy[j];   //put points in to temp array
                 } else {
                     
-                    if (ncoll >= 3) {
+                    if (ncoll >= 3) {       //if run is of more than 4 points collinear, print out points and draw line.
+                        
+                        //find out if points are strictly ascending or strictly descending
+                        boolean order = true;
+                        for (int l = 1; l < temp.length; l++) {
+                          if (temp[l-1].compareTo(temp[l]) < 0) order = false;
+                        }
+                        
+                        if (order) {
                       points[i].drawTo(copy[end_j]);
                       StdDraw.show(0); 
-//                      for (int k = start_j; k <= end_j, k++) {
-//                   
-//                      }
+                      String output = "";
+                      for (int k = start_j; k <= end_j; k++) {
+                          output = output + " -> "+copy[k];
+                      }
+                      System.out.printf("%s%s\n",points[i],output);
+                    }
                     }
                    
-                   ncoll = 1;
+                   ncoll = 1;        //reset counter to find next run
                    start_j = j;
                    slope = presentSlope;    
                 }
-                System.out.printf("slope = %f, presentSlope = %f, ncoll = %d\n",slope,presentSlope,ncoll);
+                //System.out.printf("slope = %f, presentSlope = %f, ncoll = %d\n",slope,presentSlope,ncoll);
           }
           
           
