@@ -62,11 +62,7 @@ public class Fast {
            */
           Arrays.sort(points); 
           
-          /**
-           * make array to keep slopes;
-           */
-          
-          Double[] slopes = new Double[points.length-1];
+         
               
               
           /**make a copy of points, and iterate through copy
@@ -75,7 +71,7 @@ public class Fast {
           */
               
           Point[] copy = Arrays.copyOf(points,points.length);
-          Point[] temp = new Point[points.length+1];
+         
           
           
          for (int i=0; i < points.length ; i++) {
@@ -104,49 +100,51 @@ public class Fast {
           int end_j = 0;
            int count = 0;
           Double slope = points[i].slopeTo(copy[0]);
-          
-         
-          Arrays.fill(temp, null);
-          temp[0] = points[i];
+           Double presentSlope  = points[i].slopeTo(copy[1]);
+          int j = 2;
+      
           /**
            * Compute slopes to all other points with respect to current point, points[i]
            * looks for "runs" of equal slopes.
            * if "run" is greater than 3, print out line and output points
            */
-         // System.out.println(Arrays.toString(copy));
-          for (int j = 1; j < points.length;j++) {
-                Double presentSlope = points[i].slopeTo(copy[j]); 
+       
+          
                 
-                //System.out.printf("%s,%s\n", copy[j-1],copy[j]);
-                //System.out.println((copy[j-1].compareTo(copy[j])));
                 
+               
                 /**
                  * only count points that are collinear, and run is in lexicographic order, so we don't print subset of lines, 
                  * or multiple lines on a given run
-                 * && (copy[j-1].compareTo(copy[j]) > 0)
-                 * 
+                 * If smallest point in a run is smaller than points[i], then points[i] is not the start of the run
+                 * on the other hand, if smallest point in a run is larger than points[i], then all points in that run will be larger than it.
+                 * Thus points[i] will be the start of the run.
+                 * If we print only points where points[i] is the start of the run, this will ensure no permutations and subsets.
                  */
                 
-               
-                if (Math.abs(presentSlope - slope) <0.0001){    //if we get consecutively identical slopes
-                   
+          while (j != copy.length) {
+                boolean loopEnter = false;
+                while ((Math.abs(presentSlope - slope) <0.0001) && (j != copy.length)){    //if we get consecutively identical slopes
+                    System.out.printf("%f,%f\n", slope, presentSlope);
                     ncoll++;        //increment run counter
                     end_j = j;
-                    temp[count++]=copy[j];   //put points in to temp array
-                } else {
+                    slope = presentSlope;
+                    presentSlope = points[i].slopeTo(copy[j]); 
+                     j++;
+                      loopEnter = true;
+                } 
                     
                     if (ncoll >= 3) {       //if run is of more than 4 points collinear, print out points and draw line.
                         
-                        //find out if points are strictly ascending or strictly descending
-                        boolean order = true;
-                        for (int l = 1; l < temp.length; l++) {
-                          if (temp[l-1].compareTo(temp[l]) < 0) order = false;
-                        }
+                       
+                  /**find out if points[i] is the start of that run.i.e. need points[i] to be the smallest point in run
+                    * equality makes sure horizontal lines are included too.
+                    */
                         
-                        if (order) {
-                      points[i].drawTo(copy[end_j]);
-                      StdDraw.show(0); 
-                      String output = "";
+                        if (points[i].compareTo(copy[start_j]) < 0) {    
+                         points[i].drawTo(copy[end_j]);
+                         StdDraw.show(0); 
+                         String output = "";
                       for (int k = start_j; k <= end_j; k++) {
                           output = output + " -> "+copy[k];
                       }
@@ -156,9 +154,17 @@ public class Fast {
                    
                    ncoll = 1;        //reset counter to find next run
                    start_j = j;
-                   slope = presentSlope;    
-                }
-                //System.out.printf("slope = %f, presentSlope = %f, ncoll = %d\n",slope,presentSlope,ncoll);
+                   
+                   if (!loopEnter) {
+                       
+                       slope = presentSlope;
+                       presentSlope = points[i].slopeTo(copy[j]); 
+                       j++;
+                       
+                   }
+                       
+          
+               
           }
           
           
@@ -167,25 +173,7 @@ public class Fast {
          
           
           
-          //if there are 4 or more points collinear, 
-          
-          
-          //check which points have equal slopes wrt p
-          //index is the index of point array with final point of common slope
-         // int index = checkSlopesFast(points);
-          //System.out.printf("Point = %s, Index = %d\n",points[i],index); 
-          
-          //if there are three or more points with same slope wrt p (4 collinear)
-          //draw line from first to last point
-//          int index = 3;
-//          if (index > 2) {
-//               System.out.printf("%s -> %s -> %s -> %s\n",points[0],points[1],points[2],points[3]);
-//              //draw line from smallest point to largest point
-//                           points[0].drawTo(points[index]);
-//                             StdDraw.show(0);
-//                              // reset the pen radius
-//                            StdDraw.setPenRadius();
-//          }
+         
       }
       
     }
