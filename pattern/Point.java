@@ -19,7 +19,7 @@ public class Point implements Comparable<Point> {
     public final Comparator<Point> SLOPE_ORDER = new BySlope();;       // YOUR DEFINITION HERE
     
     //compare points by height
-   //  public final Comparator<Point> HEIGHT_ORDER = new ByHeight();;
+     public final Comparator<Point> HEIGHT_ORDER = new ByHeight();;
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
@@ -101,21 +101,21 @@ public class Point implements Comparable<Point> {
      * @return 0 if @this == @that are the same points
      */
     
-//      private  class ByHeight implements Comparator<Point> {
-//    public int compare(Point p1) {
-//        /* YOUR CODE HERE */
-//        int truthy = 0;
-//        if (this.x == p1.x && this.y == p1.y) {
-//          truthy = 0;
-//        } else if (this.y < p1.y) {
-//           truthy = -1;
-//        } else if ((this.y == p1.y) && (this.x < p1.x)) {
-//           truthy = -1;
-//        } else truthy = 1;
-//        return truthy;
-//        
-//    }
-//     }
+      private  class ByHeight implements Comparator<Point> {
+    public int compare(Point p1, Point p2) {
+        /* YOUR CODE HERE */
+        int truthy = 0;
+        if (p1.x == p2.x && p1.y == p2.y) {
+          truthy = 0;
+        } else if (p1.y < p2.y) {
+           truthy = -1;
+        } else if ((p1.y == p2.y) && (p1.x < p2.x)) {
+           truthy = -1;
+        } else truthy = 1;
+        return truthy;
+        
+    }
+     }
       
       
      

@@ -20,14 +20,16 @@ import java.io.IOException;
 
 public class Fast {
     
-        
+        /**
+         * 
+         */
     
 //        private static int checkSlopesFast(Point[] tuple) {
 //        //this doesn't work because the common slopes may not be at the beginning of the array.
-          //UPATE 9/14: actually, maybe they don't have to be at the beginining. since looping
-    //through all points, eventually we'll get to where they come to the beginning of the array.
-    
-    
+////          UPATE 9/14: actually, maybe they don't have to be at the beginining. since looping
+////    through all points, eventually we'll get to where they come to the beginning of the array.
+//    
+//    
 //        Boolean truthy = false;
 //     
 //        
@@ -51,17 +53,24 @@ public class Fast {
 //    
     
 //    private static int checkSlopesFast(Point[] points) {
-//    
-//        int i = 1;
-//        int count = 0;
-//        while (count == 0) {
-//            
 //        
 //        
-//        
-//        }
+//        for (int j = 0; j < points.length; j++) {
+//        Double slope = points[j].slopeTo(points[j+1]);     //slope between first and second point
+//          int j=2;              
+//          int ncoll = 2;        //number of points collinear at the start of array
+//          
+//          /** while there are points who share the slope between 
+//            * first and second points in array, increment ncoll.
+//            */
+//          while (slope == points[0].slopeTo(points[j++])) {
+//             ++ncoll;
+//          }
+//          
+//          
 //    
 //    
+//    }
 //    }
     
     public static void main(String[] args) {
@@ -95,7 +104,27 @@ public class Fast {
       
       
      // System.out.println(Arrays.toString(points));
-      for (int i=0; i < points.length; i++) {
+          
+          /**
+           * sort points by lexicographic order
+           */
+          Arrays.sort(points); 
+          
+          /**
+           * make array to keep slopes;
+           */
+          double[] slopes = new double[points.length];
+              
+              
+          /**make a copy of points, and iterate through copy
+          *the order of points will keep changing through the loop
+          *so loop through copy so that all points are hit.
+          */
+              
+          Point[] copy = Arrays.copyOf(points,points.length);
+          
+          
+         for (int i=0; i < points.length; i++) {
           
           
           /**There's a more elegant way.  
@@ -108,11 +137,30 @@ public class Fast {
            *[mergesort which is used in arrays.sort() is stable]
            **/
           
-          
-          //sort array according to slopes with present point
-          Arrays.sort(points, points[i].SLOPE_ORDER);
+           // Arrays.sort(points, points[i].HEIGHT_ORDER);
+          //sort array according to slopes made with present point
+          Arrays.sort(copy, points[i].SLOPE_ORDER);
           
           System.out.println(Arrays.toString(points));
+          
+          Double slope = copy[0].slopeTo(copy[1]);     //slope between first and second point
+          int j=2;              
+          int ncoll = 2;        //number of points collinear at the start of array
+          
+          /** while there are points who share the slope between 
+            * first and second points in array, increment ncoll.
+            */
+          
+          
+          while (slope == copy[0].slopeTo(copy[j++])) {
+             ++ncoll;
+          }
+          
+          System.out.println(ncoll);
+          
+          
+          //if there are 4 or more points collinear, 
+          
           
           //check which points have equal slopes wrt p
           //index is the index of point array with final point of common slope
