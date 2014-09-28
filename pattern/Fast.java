@@ -20,67 +20,20 @@ import java.io.IOException;
 
 public class Fast {
     
-        /**
-         * 
-         */
-    
-//        private static int checkSlopesFast(Point[] tuple) {
-//        //this doesn't work because the common slopes may not be at the beginning of the array.
-////          UPATE 9/14: actually, maybe they don't have to be at the beginining. since looping
-////    through all points, eventually we'll get to where they come to the beginning of the array.
-//    
-//    
-//        Boolean truthy = false;
-//     
-//        
-//        Double slope = tuple[0].slopeTo(tuple[1]);
-//        //System.out.printf("i = 1, slope = %f\n",slope);
-//        int i = 2;
-//        int index = 1;
-//        
-//        
-//        
-//        while (slope == tuple[0].slopeTo(tuple[i++])) {
-//            //System.out.printf("i = %d, slope = %f\n",i-1,tuple[0].slopeTo(tuple[i-1]));
-//            index++;
-//            if (i == tuple.length) break;   
-//        }
-//        //System.out.println(i);
-//        
-//        
-//        return index;
-//    }
-//    
-    
-//    private static int checkSlopesFast(Point[] points) {
-//        
-//        
-//        for (int j = 0; j < points.length; j++) {
-//        Double slope = points[j].slopeTo(points[j+1]);     //slope between first and second point
-//          int j=2;              
-//          int ncoll = 2;        //number of points collinear at the start of array
-//          
-//          /** while there are points who share the slope between 
-//            * first and second points in array, increment ncoll.
-//            */
-//          while (slope == points[0].slopeTo(points[j++])) {
-//             ++ncoll;
-//          }
-//          
-//          
-//    
-//    
-//    }
-//    }
+
     
     public static void main(String[] args) {
     
-     StdDraw.setXscale(0, 32768);
+        
+        /**draw points to stdout
+          * 
+          */
+        
+        
+        StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
        
         StdDraw.setPenRadius(0.01);  // make the points a bit larger
-         //init
-  //Scanner sc = new Scanner(System.in);
         
       // read in the input
       
@@ -99,21 +52,21 @@ public class Fast {
         }
     
           StdDraw.show(0);
-       //System.out.print("Points drawn. Press any key to continue.\n");
-      //sc.nextLine();
-      
-      
-     // System.out.println(Arrays.toString(points));
+       
           
           /**
            * sort points by lexicographic order
+           * this is because sort will look at the compareTo method and
+           * sort according to it if present, else it'll use it's on comparison benchmark
+           * compareTo was defined in Point.java
            */
           Arrays.sort(points); 
           
           /**
            * make array to keep slopes;
            */
-          double[] slopes = new double[points.length];
+          
+          Double[] slopes = new Double[points.length-1];
               
               
           /**make a copy of points, and iterate through copy
@@ -124,7 +77,7 @@ public class Fast {
           Point[] copy = Arrays.copyOf(points,points.length);
           
           
-         for (int i=0; i < points.length; i++) {
+         for (int i=0; i ==0 ; i++) {
           
           
           /**There's a more elegant way.  
@@ -137,26 +90,45 @@ public class Fast {
            *[mergesort which is used in arrays.sort() is stable]
            **/
           
-           // Arrays.sort(points, points[i].HEIGHT_ORDER);
+           
+             
           //sort array according to slopes made with present point
           Arrays.sort(copy, points[i].SLOPE_ORDER);
           
-          System.out.println(Arrays.toString(points));
+          //System.out.println(Arrays.toString(points));
           
-          Double slope = copy[0].slopeTo(copy[1]);     //slope between first and second point
-          int j=2;              
-          int ncoll = 2;        //number of points collinear at the start of array
-          
-          /** while there are points who share the slope between 
-            * first and second points in array, increment ncoll.
-            */
-          
-          
-          while (slope == copy[0].slopeTo(copy[j++])) {
-             ++ncoll;
+                       
+          int ncoll = 0;        //number of points collinear, in addition to present point
+          int start_j = 0;
+          int end_j = 0;
+          Double slope = copy[0].slopeTo(copy[1]);
+          for (int j = 1; j < points.length;j++) {
+                Double presentSlope = copy[0].slopeTo(copy[j]); 
+                if (presentSlope == slope) {
+                    System.out.println("presentSlope == slope");
+                    ncoll++;
+                    end_j = j;
+                } else {
+                    
+                    if (ncoll >= 3) {
+                      copy[start_j].drawTo(copy[end_j]);
+                      StdDraw.show(0); 
+//                      for (int k = start_j; k <= end_j, k++) {
+//                   
+//                      }
+                    }
+                   
+                   ncoll = 0;
+                   start_j = j;
+                   slope = presentSlope;    
+                }
+                System.out.printf("slope = %f, presentSlope = %f, ncoll = %d\n",slope,presentSlope,ncoll);
           }
           
-          System.out.println(ncoll);
+          
+         
+          
+         
           
           
           //if there are 4 or more points collinear, 
