@@ -77,7 +77,7 @@ public class Fast {
           Point[] copy = Arrays.copyOf(points,points.length);
           
           
-         for (int i=0; i ==0 ; i++) {
+         for (int i=0; i < points.length ; i++) {
           
           
           /**There's a more elegant way.  
@@ -104,21 +104,27 @@ public class Fast {
           Double slope = copy[0].slopeTo(copy[1]);
           for (int j = 1; j < points.length;j++) {
                 Double presentSlope = copy[0].slopeTo(copy[j]); 
-                if (presentSlope == slope) {
+                
+                
+                /**
+                 * only count points that are collinear, and run is in lexicographic order, so we don't print subset of lines, 
+                 * or multiple lines on a given run
+                 */
+                if ((Math.abs(presentSlope - slope) <0.0001) && (copy[j].compareTo[j+1] >0) ){
                     System.out.println("presentSlope == slope");
                     ncoll++;
                     end_j = j;
                 } else {
                     
                     if (ncoll >= 3) {
-                      copy[start_j].drawTo(copy[end_j]);
+                      points[i].drawTo(copy[end_j]);
                       StdDraw.show(0); 
 //                      for (int k = start_j; k <= end_j, k++) {
 //                   
 //                      }
                     }
                    
-                   ncoll = 0;
+                   ncoll = 1;
                    start_j = j;
                    slope = presentSlope;    
                 }
