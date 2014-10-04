@@ -65,116 +65,20 @@ public class Fast {
          
               
               
-          /**make a copy of points, and iterate through copy
-          *the order of points will keep changing through the loop
-          *so loop through copy so that all points are hit.
+          /**make a copy of points, and iterate through points[]
+          *  the order of copy[] will keep changing through the loop
+          *  so loop through points[] so that all points are hit.
           */
               
           Point[] copy = Arrays.copyOf(points,points.length);
          
-          
+           //because slope to itself is nInf, 
+          //first element of copy[] (the sorted array by slopes) will always be points[i]
           
          for (int i=0; i < points.length ; i++) {
-          
-          
-          /**There's a more elegant way.  
-            * If you don't discard any points and always find all the equal-valued slope points in a 'run' 
-            * then you won't get any subsegments.  
-            * You'll still see permutations in the order of the points, 
-            * but you can ignore all the permutations that aren't in the special order you're looking for.  
-            * Hint: use a stable sort with the right set-up and then the 
-            * discarding of 'runs' that are not in the correct order is pretty much automatic.
-           *[mergesort which is used in arrays.sort() is stable]
-           **/
-          
-           
+              Arrays.sort(copy,points[i].SLOPE_ORDER);     //sort copy[] by slopes wrt points[i]
+              System.out.printf("%s,%s\n",points[i],copy[0]);   
              
-          //sort array according to slopes made with present point
-          Arrays.sort(copy, points[i].SLOPE_ORDER);
-          
-          //System.out.println(Arrays.toString(points));
-          
-                       
-          int ncoll = 0;        //number of points collinear, in addition to present point
-          int start_j = 0;
-          int end_j = 0;
-           int count = 0;
-          Double slope = points[i].slopeTo(copy[0]);
-           Double presentSlope  = points[i].slopeTo(copy[1]);
-          int j = 2;
-      
-          /**
-           * Compute slopes to all other points with respect to current point, points[i]
-           * looks for "runs" of equal slopes.
-           * if "run" is greater than 3, print out line and output points
-           */
-       
-          
-                
-                
-               
-                /**
-                 * only count points that are collinear, and run is in lexicographic order, so we don't print subset of lines, 
-                 * or multiple lines on a given run
-                 * If smallest point in a run is smaller than points[i], then points[i] is not the start of the run
-                 * on the other hand, if smallest point in a run is larger than points[i], then all points in that run will be larger than it.
-                 * Thus points[i] will be the start of the run.
-                 * If we print only points where points[i] is the start of the run, this will ensure no permutations and subsets.
-                 */
-                
-          while (j != copy.length) {
-                boolean loopEnter = false;
-                while ((Math.abs(presentSlope - slope) <0.0001) && (j != copy.length)){    //if we get consecutively identical slopes
-                    System.out.printf("%f,%f\n", slope, presentSlope);
-                    ncoll++;        //increment run counter
-                    end_j = j;
-                    slope = presentSlope;
-                    presentSlope = points[i].slopeTo(copy[j]); 
-                     j++;
-                      loopEnter = true;
-                } 
-                    
-                    if (ncoll >= 3) {       //if run is of more than 4 points collinear, print out points and draw line.
-                        
-                       
-                  /**find out if points[i] is the start of that run.i.e. need points[i] to be the smallest point in run
-                    * equality makes sure horizontal lines are included too.
-                    */
-                        
-                        if (points[i].compareTo(copy[start_j]) < 0) {    
-                         points[i].drawTo(copy[end_j]);
-                         StdDraw.show(0); 
-                         String output = "";
-                      for (int k = start_j; k <= end_j; k++) {
-                          output = output + " -> "+copy[k];
-                      }
-                      System.out.printf("%s%s\n",points[i],output);
-                    }
-                    }
-                   
-                   ncoll = 1;        //reset counter to find next run
-                   start_j = j;
-                   
-                   if (!loopEnter) {
-                       
-                       slope = presentSlope;
-                       presentSlope = points[i].slopeTo(copy[j]); 
-                       j++;
-                       
-                   }
-                       
-          
-               
-          }
-          
-          
-         
-          
-         
-          
-          
-         
-      }
-      
-    }
+         }
+}
 }
