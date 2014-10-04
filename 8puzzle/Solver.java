@@ -27,6 +27,8 @@ public class Solver {
    System.out.println(initial.dimension());
    System.out.println(initial.hamming());
    
+   System.out.println(initial.isGoal());
+   
    MinPQ minpq[] = new MinPQ[N];
     
 //

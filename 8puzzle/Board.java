@@ -12,9 +12,10 @@ public class Board {
     
      private  int[] myBoard;
      private int blocksDim;
-     private  final int[] goal;   //goal board. immutable
+     private  final int[] goal;   //goal board. immutable. created in constructor
      private int i,j,k;   //loop counters
-     private int ham = 0, man = 0;
+     private int ham = 0, man = 0;    
+     private boolean goalie = true;   // used in isGoal()
         
         
     public Board(int[][] blocks)          { // construct a board from an N-by-N array of blocks
@@ -28,7 +29,7 @@ public class Board {
             for ( j = 0; j < blocksDim; j++) {
                 
                myBoard[j+blocksDim*i] = blocks[i][j];
-               System.out.println(myBoard[j+blocksDim*i]);
+               //System.out.println(myBoard[j+blocksDim*i]);
             }
             
             //form the goal board, which has size
@@ -36,7 +37,7 @@ public class Board {
             
             for ( k = 0; k < blocksDim*blocksDim-1; k++) {
                 goal[k] = k+1;  
-                System.out.println(goal[k]);
+                //System.out.println(goal[k]);
             }
             
             //the last element of the goal board is 0,
@@ -57,12 +58,23 @@ public class Board {
     public int hamming()                   { // number of blocks out of place
         for (i = 0; i< blocksDim*blocksDim; i++) {
           if (goal[i] != myBoard[i]) ham++;
-          System.out.printf("goal = %d, board = %d\n",goal[i],myBoard[i]);
+          //System.out.printf("goal = %d, board = %d\n",goal[i],myBoard[i]);
         }
         return ham;
     }
-//    public int manhattan()                 // sum of Manhattan distances between blocks and goal
-//    public boolean isGoal()                // is this board the goal board?
+//    public int manhattan()                 {// sum of Manhattan distances between blocks and goal
+//          
+//    
+//    }
+    public boolean isGoal()               { // is this board the goal board?
+        i = 0; 
+        while (goalie) {
+           if (goal[i] != myBoard[i]) goalie = false;
+           i++;
+          
+        }
+         return goalie;
+    }
 //    public Board twin()                    // a board obtained by exchanging two adjacent blocks in the same row
 //    public boolean equals(Object y)        // does this board equal y?
 //    public Iterable<Board> neighbors()     // all neighboring boards
